@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AERIS — Weather</title>
+    <link rel="icon" type="image/png" href="./img/favicon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="./output.css">
+    
+</head>
+
+<body>
+
+<div class="background">
+    <div class="stars"></div>
+</div>
+
+<main class="aeris-container mx-auto w-[92%] max-w-[1000px]">
+
+    <!-- HEADER -->
+    <header
+        class="top flex h-[90px] items-center justify-between border-b border-white/[.09]
+               max-[700px]:h-auto max-[700px]:gap-[15px] max-[700px]:py-5"
+    >
+
+        <div
+            class="logo text-[15px] font-extrabold tracking-[4px]
+                   max-[500px]:text-[13px] max-[500px]:tracking-[3px]
+                   max-[360px]:text-[11px]"
+        >
+            AERIS<span class="text-[#72d9ff]">.</span>
+        </div>
+
+        <div
+            class="header-right flex items-center gap-[18px]
+                   max-[700px]:gap-2
+                   max-[500px]:gap-[5px]"
+        >
+            <div class="live-clock">
+                <span id="clockCity">SAMARKAND</span>
+                <strong id="liveClock">00:00:00</strong>
+                <small id="clockDate">LOADING...</small>
+            </div>
+            <!-- LANGUAGE -->
+            <div
+                class="languages flex items-center gap-1 rounded-[10px]
+                       border border-white/[.09] bg-white/[.03] p-1
+                       max-[500px]:p-[3px]"
+            >
+                <button
+                    class="lang active rounded-[7px] border-0 bg-[#72d9ff]
+                           px-[9px] py-[7px] text-[9px] font-bold
+                           text-[#06101d] transition-all duration-300
+                           hover:text-white
+                           max-[500px]:px-[7px] max-[500px]:py-[6px]
+                           max-[500px]:text-[8px]"
+                    data-lang="uz"
+                >
+                    UZ
+                </button>
+
+                <button
+                    class="lang rounded-[7px] border-0 bg-transparent
+                           px-[9px] py-[7px] text-[9px] font-bold
+                           text-[#8490a8] transition-all duration-300
+                           hover:text-white
+                           max-[500px]:px-[7px] max-[500px]:py-[6px]
+                           max-[500px]:text-[8px]"
+                    data-lang="en"
+                >
+                    EN
+                </button>
+
+                <button
+                    class="lang rounded-[7px] border-0 bg-transparent
+                           px-[9px] py-[7px] text-[9px] font-bold
+                           text-[#8490a8] transition-all duration-300
+                           hover:text-white
+                           max-[500px]:px-[7px] max-[500px]:py-[6px]
+                           max-[500px]:text-[8px]"
+                    data-lang="ru"
+                >
+                    RU
+                </button>
+            </div>
+
+            <!-- THEME -->
+            <button
+                id="themeBtn"
+                title="Theme"
+                class="theme-btn h-9 w-9 rounded-[10px]
+                       border border-white/[.09] bg-white/[.04]
+                       text-base transition-all duration-300
+                       hover:rotate-[15deg] hover:scale-105
+                       hover:border-[#72d9ff]
+                       max-[500px]:h-8 max-[500px]:w-8 max-[500px]:text-[13px]
+                       max-[360px]:h-[29px] max-[360px]:w-[29px]"
+            >
+                ☀️
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- WEATHER CARD -->
+    <section
+        class="weather-card mt-[70px] rounded-[24px]
+               border border-white/[.09]
+               bg-[linear-gradient(135deg,rgba(20,30,55,.8),rgba(6,10,23,.88))]
+               p-[35px]
+               shadow-[0_40px_100px_rgba(0,0,0,.4)]
+               backdrop-blur-[25px]
+               transition-all duration-500
+               hover:-translate-y-[5px]
+               hover:border-[#72d9ff]/25
+               hover:shadow-[0_50px_120px_rgba(0,0,0,.5),0_0_50px_rgba(79,140,255,.06)]
+               max-[900px]:mt-[45px]
+               max-[700px]:mt-[25px] max-[700px]:p-6
+               max-[500px]:rounded-[18px] max-[500px]:p-[18px]"
+    >
+
+    <div class="search-note">
+        <span>ⓘ</span>
+        <p>
+            <strong data-i18n="searchNoteTitle">Eslatma!</strong>
+            <span data-i18n="searchNoteText">
+                Shaharlarni inglizcha nomi bilan qidiring.
+                Masalan: Portugaliya emas Portugal, Germaniya emas Germany.
+            </span>
+        </p>
+    </div>
+
+        <!-- SEARCH -->
+        <div
+            class="search-box mb-10 flex gap-[10px]
+                   max-[700px]:flex-col"
+        >
+
+            <input
+                type="text"
+                id="cityInput"
+                data-placeholder="placeholder"
+                placeholder="Shahar nomini kiriting..."
+                autocomplete="off"
+                class="h-[58px] min-w-0 flex-1 rounded-xl
+                       border border-white/[.09]
+                       bg-white/[.035]
+                       px-5 text-sm text-[#f5f8ff]
+                       outline-none transition-all duration-300
+                       placeholder:text-[#657087]
+                       hover:border-[#72d9ff]/45
+                       hover:bg-[#72d9ff]/[.035]
+                       focus:border-[#72d9ff]/45
+                       focus:bg-[#72d9ff]/[.035]
+                       focus:shadow-[0_0_30px_rgba(114,217,255,.07)]
+                       max-[700px]:w-full"
+            >
+
+            <button
+                id="searchBtn"
+                class="h-[58px] rounded-xl border-0
+                       bg-gradient-to-br from-[#72d9ff] to-[#4f8cff]
+                       px-6 text-[10px] font-extrabold
+                       tracking-[1.5px] text-[#06101d]
+                       transition-all duration-300
+                       hover:-translate-y-[3px]
+                       hover:shadow-[0_15px_35px_rgba(79,140,255,.25)]
+                       max-[700px]:w-full"
+            >
+                <span
+                    data-i18n="search"
+                    class="ml-3 text-[17px]"
+                >
+                    QIDIRISH
+                </span>
+
+                <b>↗</b>
+            </button>
+            
+            <button
+    id="locationBtn"
+    class="h-[58px] rounded-xl border border-[#72d9ff]/25
+           bg-[#72d9ff]/[.06]
+           px-5 text-[10px] font-extrabold
+           tracking-[1.5px] text-[#72d9ff]
+           transition-all duration-300
+           hover:-translate-y-[3px]
+           hover:border-[#72d9ff]/50
+           hover:bg-[#72d9ff]/[.1]
+           max-[700px]:w-full"
+>
+    <span data-i18n="useLocation">
+        📍 JOYLASHUVIM
+    </span>
+</button>
+
+        </div>
+
+
+        <!-- LOADING -->
+        <div
+            id="loading"
+            class="loading hidden p-[30px] text-center
+                   text-[10px] tracking-[2px] text-[#72d9ff]"
+        >
+            <span data-i18n="loading">
+                OB-HAVO YUKLANMOQDA...
+            </span>
+        </div>
+
+
+        <!-- ERROR -->
+        <div
+            id="error"
+            class="error p-[15px] text-center text-xs text-[#ff7f9d]"
+        ></div>
+
+
+        <!-- WEATHER -->
+        <div id="weather" class="weather hidden">
+
+            <!-- LOCATION -->
+            <div
+                class="location-row flex items-start justify-between
+                       max-[500px]:flex-col max-[500px]:gap-2"
+            >
+
+                <div>
+
+                    <p
+                        class="label text-[9px] tracking-[2px] text-[#72d9ff]"
+                        data-i18n="location"
+                    >
+                        JOYLASHUV
+                    </p>
+
+                    <h1
+                        id="city"
+                        class="mt-2 text-[42px] tracking-[-2px]
+                               max-[700px]:text-[34px]
+                               max-[500px]:text-[30px] max-[500px]:tracking-[-1px]"
+                    >
+                        Samarkand
+                    </h1>
+
+                    <p
+                        id="country"
+                        class="mt-1 text-[13px] text-[#8490a8]"
+                    >
+                        Uzbekistan
+                    </p>
+
+                </div>
+
+                <div
+                    id="date"
+                    class="date text-[11px] text-[#8490a8]
+                           max-[500px]:text-[10px]"
+                >
+                    --
+                </div>
+
+            </div>
+
+
+            <!-- MAIN WEATHER -->
+            <div
+                class="main-weather my-[45px] flex items-center gap-[25px]
+                       max-[700px]:gap-[15px]
+                       max-[500px]:my-[35px] max-[500px]:flex-wrap max-[500px]:gap-3"
+            >
+
+                <div
+                    id="weatherIcon"
+                    class="weather-icon text-[75px]
+                           drop-shadow-[0_0_25px_rgba(114,217,255,.2)]
+                           animate-icon-float
+                           max-[700px]:text-[55px]
+                           max-[500px]:text-[52px]
+                           max-[360px]:text-[44px]"
+                >
+                    ☀️
+                </div>
+
+                <div
+                    class="temperature text-[100px] font-bold leading-[.8]
+                           tracking-[-7px]
+                           max-[900px]:text-[82px]
+                           max-[700px]:text-[70px]
+                           max-[500px]:text-[62px] max-[500px]:tracking-[-4px]
+                           max-[360px]:text-[52px]"
+                >
+                    <span id="temperature">--</span>
+
+                    <sup
+                        class="text-[25px] tracking-normal
+                               max-[500px]:text-[18px]"
+                    >
+                        °C
+                    </sup>
+                </div>
+
+                <p
+                    id="condition"
+                    class="self-end mb-[5px] text-[13px] text-[#8490a8]
+                           max-[500px]:ml-1 max-[500px]:w-full"
+                >
+                    Clear sky
+                </p>
+
+            </div>
+
+
+            <!-- DETAILS -->
+            <div
+                class="details grid grid-cols-3 gap-3
+                       max-[700px]:grid-cols-1"
+            >
+
+                <div
+                    class="detail flex items-center gap-[14px]
+                           rounded-[14px] border border-white/[.09]
+                           bg-white/[.025] p-[18px]
+                           transition-all duration-300
+                           hover:-translate-y-1
+                           hover:border-[#72d9ff]/25
+                           hover:bg-[#72d9ff]/[.035]"
+                >
+
+                    <span class="detail-icon text-[22px]">
+                        💧
+                    </span>
+
+                    <div>
+                        <small
+                            data-i18n="humidity"
+                            class="mb-[5px] block text-[8px]
+                                   tracking-[1px] text-[#8490a8]"
+                        >
+                            NAMLIK
+                        </small>
+
+                        <strong
+                            id="humidity"
+                            class="text-sm"
+                        >
+                            --%
+                        </strong>
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="detail flex items-center gap-[14px]
+                           rounded-[14px] border border-white/[.09]
+                           bg-white/[.025] p-[18px]
+                           transition-all duration-300
+                           hover:-translate-y-1
+                           hover:border-[#72d9ff]/25
+                           hover:bg-[#72d9ff]/[.035]"
+                >
+
+                    <span class="detail-icon text-[22px]">
+                        💨
+                    </span>
+
+                    <div>
+                        <small
+                            data-i18n="wind"
+                            class="mb-[5px] block text-[8px]
+                                   tracking-[1px] text-[#8490a8]"
+                        >
+                            SHAMOL
+                        </small>
+
+                        <strong
+                            id="wind"
+                            class="text-sm"
+                        >
+                            -- km/h
+                        </strong>
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="detail flex items-center gap-[14px]
+                           rounded-[14px] border border-white/[.09]
+                           bg-white/[.025] p-[18px]
+                           transition-all duration-300
+                           hover:-translate-y-1
+                           hover:border-[#72d9ff]/25
+                           hover:bg-[#72d9ff]/[.035]"
+                >
+
+                    <span class="detail-icon text-[22px]">
+                        🌡️
+                    </span>
+
+                    <div>
+                        <small
+                            data-i18n="feels"
+                            class="mb-[5px] block text-[8px]
+                                   tracking-[1px] text-[#8490a8]"
+                        >
+                            HIS QILINISHI
+                        </small>
+
+                        <strong
+                            id="feels"
+                            class="text-sm"
+                        >
+                            --°C
+                        </strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- HOURLY WEATHER -->
+            <section class="mt-6 w-full">
+                <div
+                    class="aeris-blue-card overflow-hidden rounded-2xl backdrop-blur-xl"
+                >
+                    <!-- Header -->
+                    <div class="flex items-center justify-between border-b border-white/10 px-5 py-4">
+                        <div>
+                            <p
+                                class="text-[9px] tracking-[2px] text--[#43cbfcb0]"
+                                data-i18n="hourlyLabel"
+                            >
+                                SOATLIK OB-HAVO
+                            </p>
+
+                        </div>
+
+                        <span
+                            class="text-[8px] tracking-[1.5px] text--white/30"
+                            data-i18n="scrollHint"
+                        >
+                            SURING →
+                        </span>
+                    </div>
+
+                    <!-- Hourly items -->
+                    <div
+                        id="hourlyWeather"
+                        class="flex gap-3 overflow-x-auto px-4 py-4"
+                    >
+                        <!-- JS orqali to'ldiriladi -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- FORECAST -->
+            <div
+                class="forecast-title mt-[35px] mb-[15px]
+                       text-[9px] tracking-[2px] text--[#43cbfcb0]"
+                data-i18n="forecast"
+            >
+                KEYINGI KUNLAR
+            </div>
+
+            <div
+                id="forecast"
+                class="forecast grid grid-cols-7 gap-[10px]
+                       max-[700px]:grid-cols-7 max-[700px]:overflow-x-auto
+                       max-[500px]:flex max-[500px]:overflow-x-auto
+                       max-[500px]:pb-[5px]"
+            ></div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer
+        data-i18n="footer"
+        class="py-[30px] text-center text-[8px]
+               tracking-[2px] text-[#202329]"
+    >
+        AERIS © 2026 | MR.PRINCE
+    </footer>
+
+</main>
+
+<script src="./script.js"></script>
+
+</body>
+</html>

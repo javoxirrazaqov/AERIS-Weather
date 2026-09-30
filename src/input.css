@@ -1,0 +1,1248 @@
+@import "tailwindcss";
+
+
+/* =====================================
+   AERIS THEME
+===================================== */
+
+@theme {
+    --font-manrope: "Manrope", sans-serif;
+}
+
+
+/* =====================================
+   BASE
+===================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+
+    position: relative;
+    isolation: isolate;
+
+    overflow-x: hidden;
+
+    font-family: "Manrope", sans-serif;
+
+    color: #f5f8ff;
+
+    background:
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(79,140,255,.12),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 80% 80%,
+            rgba(114,217,255,.08),
+            transparent 30%
+        ),
+        #050816;
+
+    transition:
+        background 1.2s ease,
+        color .5s ease;
+}
+
+
+/* =====================================
+   BACKGROUND
+===================================== */
+
+.background {
+    position: fixed;
+    inset: 0;
+
+    overflow: hidden;
+    pointer-events: none;
+
+    z-index: -1;
+}
+
+.stars {
+    position: absolute;
+    inset: 0;
+
+    background-image:
+        radial-gradient(circle, white 1px, transparent 1px),
+        radial-gradient(
+            circle,
+            rgba(114,217,255,.7) 1px,
+            transparent 1px
+        );
+
+    background-size:
+        150px 150px,
+        230px 230px;
+
+    opacity: .25;
+
+    animation:
+        stars 30s linear infinite;
+}
+
+
+/* =====================================
+   WEATHER EFFECTS
+===================================== */
+
+.weather-particles,
+.weather-sun,
+.weather-clouds,
+.weather-fog-layer,
+.lightning {
+    z-index: -1;
+}
+
+
+/* =====================================
+   ICON ANIMATION
+===================================== */
+
+@keyframes iconFloat {
+
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-7px);
+    }
+
+}
+
+
+/* =====================================
+   LOADING
+===================================== */
+
+@keyframes pulse {
+
+    50% {
+        opacity: .4;
+    }
+
+}
+
+
+/* =====================================
+   STARS
+===================================== */
+
+@keyframes stars {
+
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(-150px);
+    }
+
+}
+
+
+/* =====================================
+   CLEAR SKY
+===================================== */
+
+body.weather-clear {
+
+    background:
+        radial-gradient(
+            circle at 75% 18%,
+            rgba(255,220,100,.35),
+            transparent 22%
+        ),
+        radial-gradient(
+            circle at 20% 70%,
+            rgba(70,180,255,.2),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #0b3972,
+            #188dcc,
+            #74d8ff
+        );
+
+}
+
+body.weather-clear .background {
+    opacity: .9;
+}
+
+
+.weather-sun {
+
+    position: fixed;
+
+    width: 280px;
+    height: 280px;
+
+    top: -100px;
+    right: -70px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            #fff8bd 0%,
+            #ffe66d 25%,
+            #ffc44f 45%,
+            transparent 70%
+        );
+
+    filter: blur(2px);
+
+    opacity: .8;
+
+    animation:
+        sunPulse 5s ease-in-out infinite;
+
+}
+
+
+@keyframes sunPulse {
+
+    0%, 100% {
+        transform: scale(1);
+        opacity: .7;
+    }
+
+    50% {
+        transform: scale(1.08);
+        opacity: .9;
+    }
+
+}
+
+
+/* =====================================
+   CLOUDY
+===================================== */
+
+body.weather-cloudy {
+
+    background:
+        radial-gradient(
+            circle at 30% 20%,
+            rgba(120,170,210,.18),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #26384c,
+            #4d6475,
+            #7890a0
+        );
+
+}
+
+
+.weather-clouds {
+
+    position: fixed;
+    inset: 0;
+
+    overflow: hidden;
+    pointer-events: none;
+
+}
+
+
+.weather-clouds span {
+
+    position: absolute;
+
+    width: 180px;
+    height: 55px;
+
+    border-radius: 50px;
+
+    background:
+        rgba(220,235,245,.12);
+
+    filter: blur(5px);
+
+    animation:
+        cloudMove 18s linear infinite;
+
+}
+
+
+.weather-clouds span::before,
+.weather-clouds span::after {
+
+    content: "";
+
+    position: absolute;
+
+    border-radius: 50%;
+
+    background: inherit;
+
+}
+
+
+.weather-clouds span::before {
+
+    width: 70px;
+    height: 70px;
+
+    left: 25px;
+    bottom: 15px;
+
+}
+
+
+.weather-clouds span::after {
+
+    width: 90px;
+    height: 90px;
+
+    right: 25px;
+    bottom: 10px;
+
+}
+
+
+@keyframes cloudMove {
+
+    from {
+        transform: translateX(-250px);
+    }
+
+    to {
+        transform: translateX(120vw);
+    }
+
+}
+
+
+/* =====================================
+   RAIN
+===================================== */
+
+body.weather-rain {
+
+    background:
+        radial-gradient(
+            circle at 70% 20%,
+            rgba(80,140,190,.15),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #091421,
+            #172b40,
+            #263e52
+        );
+
+}
+
+
+.rain-particles {
+
+    position: fixed;
+    inset: 0;
+
+    overflow: hidden;
+    pointer-events: none;
+
+}
+
+
+.rain-drop {
+
+    position: absolute;
+
+    top: -30px;
+
+    width: 1px;
+    height: 35px;
+
+    background:
+        linear-gradient(
+            transparent,
+            rgba(160,220,255,.8)
+        );
+
+    transform: rotate(15deg);
+
+    animation:
+        rainFall linear infinite;
+
+}
+
+
+@keyframes rainFall {
+
+    from {
+
+        transform:
+            translateY(-50px)
+            translateX(0)
+            rotate(15deg);
+
+    }
+
+    to {
+
+        transform:
+            translateY(110vh)
+            translateX(-100px)
+            rotate(15deg);
+
+    }
+
+}
+
+
+/* =====================================
+   SNOW
+===================================== */
+
+body.weather-snow {
+
+    background:
+        radial-gradient(
+            circle at 70% 10%,
+            rgba(220,245,255,.3),
+            transparent 25%
+        ),
+        linear-gradient(
+            135deg,
+            #6d91a8,
+            #a9c7d8,
+            #d9edf5
+        );
+
+}
+
+
+.snow-particles {
+
+    position: fixed;
+    inset: 0;
+
+    overflow: hidden;
+    pointer-events: none;
+
+}
+
+
+.snow-flake {
+
+    position: absolute;
+
+    top: -20px;
+
+    border-radius: 50%;
+
+    background: white;
+
+    box-shadow:
+        0 0 8px rgba(255,255,255,.8);
+
+    animation:
+        snowFall linear infinite;
+
+}
+
+
+@keyframes snowFall {
+
+    0% {
+
+        transform:
+            translateY(-30px)
+            translateX(0)
+            rotate(0deg);
+
+    }
+
+    50% {
+
+        transform:
+            translateY(50vh)
+            translateX(40px)
+            rotate(180deg);
+
+    }
+
+    100% {
+
+        transform:
+            translateY(110vh)
+            translateX(-30px)
+            rotate(360deg);
+
+    }
+
+}
+
+
+/* =====================================
+   FOG
+===================================== */
+
+body.weather-fog {
+
+    background:
+        linear-gradient(
+            135deg,
+            #4b5962,
+            #7d8c91,
+            #aebbbd
+        );
+
+}
+
+
+.weather-fog-layer {
+
+    position: fixed;
+
+    inset: -20%;
+
+    pointer-events: none;
+
+    background:
+        radial-gradient(
+            ellipse at 30% 50%,
+            rgba(255,255,255,.3),
+            transparent 40%
+        ),
+        radial-gradient(
+            ellipse at 70% 40%,
+            rgba(255,255,255,.2),
+            transparent 40%
+        );
+
+    filter: blur(35px);
+
+    animation:
+        fogMove 15s ease-in-out infinite alternate;
+
+}
+
+
+@keyframes fogMove {
+
+    from {
+        transform: translateX(-5%);
+    }
+
+    to {
+        transform: translateX(5%);
+    }
+
+}
+
+
+/* =====================================
+   STORM
+===================================== */
+
+body.weather-storm {
+
+    background:
+        radial-gradient(
+            circle at 70% 20%,
+            rgba(110,110,160,.18),
+            transparent 25%
+        ),
+        linear-gradient(
+            135deg,
+            #050711,
+            #111729,
+            #20283f
+        );
+
+}
+
+
+.lightning {
+
+    position: fixed;
+    inset: 0;
+
+    pointer-events: none;
+
+    background:
+        rgba(220,240,255,.15);
+
+    opacity: 0;
+
+    animation:
+        lightningFlash 6s infinite;
+
+}
+
+
+@keyframes lightningFlash {
+
+    0%, 88%, 94%, 100% {
+        opacity: 0;
+    }
+
+    89% {
+        opacity: .8;
+    }
+
+    90% {
+        opacity: 0;
+    }
+
+    92% {
+        opacity: .5;
+    }
+
+    93% {
+        opacity: 0;
+    }
+
+}
+
+
+/* =====================================
+   LIGHT MODE
+===================================== */
+
+body.light {
+    color: #101827;
+}
+
+
+body.light .background {
+    opacity: .45;
+}
+
+
+body.light .stars {
+    opacity: .08;
+}
+
+
+body.light .weather-card {
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.9),
+            rgba(242,248,255,.85)
+        );
+
+    box-shadow:
+        0 30px 80px rgba(45,76,120,.12);
+
+}
+
+
+body.light #cityInput {
+
+    background: rgba(0,0,0,.025);
+
+    color: #101827;
+
+}
+
+
+body.light #cityInput::placeholder {
+    color: #8a96a8;
+}
+
+
+body.light .detail,
+body.light .forecast-item {
+
+    background: rgba(0,0,0,.025);
+
+}
+
+
+body.light .theme-btn {
+
+    background: rgba(0,0,0,.04);
+
+}
+
+
+/* =====================================
+   RESPONSIVE
+===================================== */
+
+@media (max-width: 900px) {
+
+    .aeris-container {
+        width: min(92%, 700px);
+    }
+
+}
+
+
+@media (max-width: 700px) {
+    .forecast {
+        display: grid;
+        grid-template-columns: repeat(7, minmax(90px, 1fr));
+        overflow-x: auto;
+    }
+}
+
+@media (max-width: 500px) {
+    .forecast {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: 5px;
+    }
+
+    .forecast-item {
+        min-width: 85px;
+        flex-shrink: 0;
+    }
+}
+
+
+@media (max-width: 360px) {
+
+    .aeris-container {
+        width: 94%;
+    }
+
+}
+
+/* AERIS LOGO ALWAYS WHITE */
+.logo {
+    color: #ffffff !important;
+}
+
+.logo span {
+    color: #72d9ff !important;
+}
+
+@media (max-width: 700px) {
+    #cityInput {
+        height: 50px !important;
+        min-height: 50px !important;
+    }
+}
+/* ===============================
+   LIVE CLOCK
+================================ */
+
+.live-clock {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 3px;
+    margin-left: auto;
+    margin-right: 20px;
+}
+
+#clockCity {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #72d9ff;
+}
+
+#liveClock {
+    font-family: "DM Mono", monospace;
+    font-size: 24px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    color: #ffffff;
+    line-height: 1;
+}
+
+#clockDate {
+    font-size: 8px;
+    letter-spacing: 1.2px;
+    color: rgba(255, 255, 255, 0.55);
+}
+
+
+
+/* RESPONSIVE */
+
+@media (max-width: 700px) {
+    .live-clock {
+        margin-right: 10px;
+    }
+
+    #liveClock {
+        font-size: 18px;
+    }
+
+    #clockDate {
+        font-size: 7px;
+    }
+
+    #clockCity {
+        font-size: 8px;
+    }
+}
+
+/* ===============================
+   LIVE CLOCK — RESPONSIVE
+================================ */
+
+.live-clock {
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+    .live-clock {
+        margin-right: 12px;
+        gap: 2px;
+    }
+
+    #liveClock {
+        font-size: 20px;
+        letter-spacing: 1.5px;
+    }
+
+    #clockCity {
+        font-size: 8px;
+        letter-spacing: 1.5px;
+    }
+
+    #clockDate {
+        font-size: 7px;
+        letter-spacing: 0.8px;
+    }
+}
+
+/* Telefon */
+@media (max-width: 700px) {
+    .live-clock {
+        margin-right: 8px;
+        gap: 2px;
+    }
+
+    #liveClock {
+        font-size: 17px;
+        letter-spacing: 1px;
+    }
+
+    #clockCity {
+        font-size: 7px;
+        letter-spacing: 1.2px;
+    }
+
+    #clockDate {
+        font-size: 6px;
+        letter-spacing: 0.5px;
+    }
+}
+
+/* Kichik telefon */
+@media (max-width: 500px) {
+    .live-clock {
+        margin-right: 5px;
+    }
+
+    #liveClock {
+        font-size: 14px;
+        letter-spacing: 0.8px;
+    }
+
+    #clockCity {
+        font-size: 6px;
+        letter-spacing: 1px;
+    }
+
+    #clockDate {
+        font-size: 5.5px;
+        letter-spacing: 0.3px;
+    }
+}
+
+.search-note {
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto 18px;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 10px 14px;
+
+    border: 1px solid rgba(114, 217, 255, 0.2);
+    border-radius: 10px;
+
+    background: rgba(114, 217, 255, 0.05);
+
+    color: rgba(255, 255, 255, 0.6);
+
+    font-size: 10px;
+    line-height: 1.5;
+    letter-spacing: 0.2px;
+}
+
+.search-note span {
+    color: #72d9ff;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+.search-note p {
+    margin: 0;
+}
+
+.search-note strong {
+    color: #72d9ff;
+}
+
+.search-note b {
+    color: #ffffff;
+}
+
+/* Light mode */
+body.light .search-note {
+    color: rgba(16, 24, 39, 0.6);
+    border-color: rgba(16, 24, 39, 0.12);
+    background: rgba(16, 24, 39, 0.04);
+}
+
+body.light .search-note b {
+    color: #101827;
+}
+
+/* Responsive */
+@media (max-width: 500px) {
+    .search-note {
+        padding: 9px 11px;
+        font-size: 9px;
+        gap: 8px;
+    }
+
+    .search-note span {
+        font-size: 12px;
+    }
+}
+
+/* HOURLY WEATHER */
+
+.hourly-item {
+    background: rgba(255, 255, 255, 0.025);
+    border-color: rgba(255, 255, 255, 0.08);
+}
+
+.hourly-item:hover {
+    transform: translateY(-3px);
+    border-color: rgba(114, 217, 255, 0.35);
+    background: rgba(114, 217, 255, 0.06);
+}
+
+.hourly-now {
+    border-color: rgba(114, 217, 255, 0.45) !important;
+    background: rgba(114, 217, 255, 0.08) !important;
+    box-shadow: 0 0 25px rgba(114, 217, 255, 0.08);
+}
+
+/* scrollbar */
+
+#hourlyWeather::-webkit-scrollbar {
+    height: 4px;
+}
+
+#hourlyWeather::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#hourlyWeather::-webkit-scrollbar-thumb {
+    background: rgba(114, 217, 255, 0.25);
+    border-radius: 10px;
+}
+
+#hourlyWeather::-webkit-scrollbar-thumb:hover {
+    background: rgba(114, 217, 255, 0.5);
+}
+
+
+
+/* =====================================
+   HOURLY WEATHER
+===================================== */
+
+.hourly-section {
+    width: 100%;
+    margin-top: 28px;
+}
+
+
+.hourly-card {
+    width: 100%;
+
+    overflow: hidden;
+
+    border: 1px solid var(--border);
+
+    border-radius: 18px;
+
+    background:
+        rgba(255, 255, 255, .025);
+
+    backdrop-filter: blur(20px);
+
+    transition:
+        background .4s ease,
+        border-color .4s ease;
+}
+
+
+/* HEADER */
+
+.hourly-header {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 20px 24px;
+
+    border-bottom:
+        1px solid var(--border);
+}
+
+
+.hourly-label {
+    margin: 0;
+
+    color: var(--blue);
+
+    font-size: 9px;
+
+    letter-spacing: 2px;
+}
+
+
+.hourly-title {
+    margin-top: 7px;
+
+    color: var(--white);
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    letter-spacing: .3px;
+}
+
+
+.hourly-scroll {
+    color: var(--muted);
+
+    font-size: 8px;
+
+    letter-spacing: 1.5px;
+}
+
+
+/* LIST */
+
+.hourly-list {
+
+    display: flex;
+
+    gap: 12px;
+
+    overflow-x: auto;
+
+    padding: 18px;
+
+    scrollbar-width: thin;
+
+    scrollbar-color:
+        rgba(114,217,255,.3)
+        transparent;
+}
+
+
+/* ITEM */
+
+.hourly-item {
+
+    flex:
+        0 0 90px;
+
+    min-height: 145px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 14px 10px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 14px;
+
+    background:
+        rgba(255,255,255,.02);
+
+    transition:
+        .3s ease;
+}
+
+
+.hourly-item:hover {
+
+    transform:
+        translateY(-4px);
+
+    border-color:
+        rgba(114,217,255,.3);
+
+    background:
+        rgba(114,217,255,.045);
+}
+
+
+/* TIME */
+
+.hourly-time {
+
+    color: var(--muted);
+
+    font-size: 9px;
+
+    letter-spacing: 1px;
+}
+
+
+/* ICON */
+
+.hourly-icon {
+
+    margin:
+        17px 0;
+
+    font-size: 28px;
+
+    line-height: 1;
+}
+
+
+/* TEMPERATURE */
+
+.hourly-temp {
+
+    color: var(--white);
+
+    font-size: 17px;
+
+    font-weight: 700;
+}
+
+
+
+
+/* =====================================
+   MOBILE
+===================================== */
+
+@media (max-width: 700px) {
+
+    .hourly-section {
+        margin-top: 22px;
+    }
+
+
+    .hourly-header {
+        padding:
+            17px 18px;
+    }
+
+
+    .hourly-title {
+        font-size: 13px;
+    }
+
+
+    .hourly-list {
+        padding:
+            15px;
+    }
+
+
+    .hourly-item {
+
+        flex-basis: 78px;
+
+        min-height: 130px;
+
+        padding:
+            12px 8px;
+    }
+
+
+    .hourly-icon {
+        font-size: 24px;
+
+        margin:
+            15px 0;
+    }
+
+
+    .hourly-temp {
+        font-size: 15px;
+    }
+
+}
+
+/* =====================================
+   HOURLY WEATHER CARD
+   MATCH MAIN WEATHER CARD
+===================================== */
+
+.aeris-blue-card {
+    border: 1px solid rgba(255, 255, 255, 0.09) !important;
+
+    background: linear-gradient(
+        135deg,
+        rgba(20, 30, 55, 0.80),
+        rgba(6, 10, 23, 0.88)
+    ) !important;
+
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+}
+
+
+/* LIGHT MODE */
+
+body.light .aeris-blue-card {
+    border: 1px solid rgba(20, 30, 55, 0.08) !important;
+
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.90),
+        rgba(242, 248, 255, 0.85)
+    ) !important;
+
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+}
